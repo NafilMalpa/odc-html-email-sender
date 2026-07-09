@@ -1,10 +1,10 @@
 # HtmlEmailSender
 
-An OutSystems Developer Cloud (ODC) **External Library** (custom code, .NET 10) that sends raw HTML emails via SMTP — bypassing ODC's native Email UI element, which escapes HTML and doesn't support injecting pre-built HTML strings/templates.
+An OutSystems Developer Cloud (ODC) **External Library** (custom code, .NET 10) that sends raw HTML emails via SMTP - bypassing ODC's native Email UI element, which escapes HTML and doesn't support injecting pre-built HTML strings/templates.
 
 ## Why this exists
 
-ODC's built-in `Send Email` node requires designing the email body visually using an **Email** UI element (widgets, expressions, etc.). There's no supported way to pass a raw HTML string (e.g. a token-replaced template) and have it render as-is — the Reactive email editor escapes HTML tags instead of interpreting them.
+ODC's built-in `Send Email` node requires designing the email body visually using an **Email** UI element (widgets, expressions, etc.). There's no supported way to pass a raw HTML string (e.g. a token-replaced template) and have it render as-is - the Reactive email editor escapes HTML tags instead of interpreting them.
 
 This library exposes a `SendHtmlEmail` server action that accepts a raw HTML string and sends it via SMTP directly, giving full control over the email body.
 
@@ -13,7 +13,7 @@ This library exposes a `SendHtmlEmail` server action that accepts a raw HTML str
 - **.NET 10**, built with the [OutSystems ExternalLibraries SDK](https://www.nuget.org/packages/OutSystems.ExternalLibraries.SDK)
 - **MailKit** for SMTP (not `System.Net.Mail.SmtpClient`, which is obsolete and had unreliable behavior in ODC's Lambda-based execution environment)
 - Connects to the SMTP server through ODC's **Private Gateway**, via the `SECURE_GATEWAY` environment variable that ODC injects into the External Library's execution context at runtime (see [Gotchas](#gotchas) below)
-- SMTP host is **not** a parameter — it's resolved automatically from `SECURE_GATEWAY`. Port, sender address/name, and SSL flag are passed in as parameters so they can be driven by ODC Configuration values per environment (DEV/TEST/PROD) without rebuilding the library
+- SMTP host is **not** a parameter - it's resolved automatically from `SECURE_GATEWAY`. Port, sender address/name, and SSL flag are passed in as parameters so they can be driven by ODC Configuration values per environment (DEV/TEST/PROD) without rebuilding the library
 
 ## Server Action
 
